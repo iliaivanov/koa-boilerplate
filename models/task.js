@@ -1,20 +1,27 @@
-const Sequelize = require('sequelize')
-const sequelize = require('../database/db')
+const { Sequelize, DataTypes } = require('sequelize')
+const sequelize = require('../database/db');
+
+// Some migrations should be executed
+// (async () => {
+//   await sequelize.sync({ force: true })
+//   // Code here
+// })()
 
 module.exports = sequelize.define(
-    'tasks',
-    {
-        id: {
-            type: Sequelize.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        task_name: {
-            type: Sequelize.STRING,
-
-        }
+  'Task',
+  {
+    id: {
+      primaryKey: true,
+      type: DataTypes.UUID,
+      defaultValue: Sequelize.UUIDV1
     },
-    {
-        timestamps: false 
-    }
+    task_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+  },
+  {
+    timestamps: false,
+    freezeTableName: true,
+  }
 )

@@ -19,6 +19,13 @@ router.get('/api/tasks/:id', async (ctx) => {
         id: ctx.params.id,
       },
     })
+    console.log(
+      await Task.findOne({
+        where: {
+          id: ctx.params.id,
+        },
+      })
+    )
   } catch (err) {
     ctx.body = {
       error: err,
@@ -26,7 +33,8 @@ router.get('/api/tasks/:id', async (ctx) => {
   }
 })
 
-router.post('/api/task', async (ctx) => {
+router.post('/api/tasks', async (ctx) => {
+  console.log(ctx.request.body)
   if (!ctx.request.body.task_name) {
     ctx.body = {
       error: 'Invalid task provided',
